@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <scope-com :song="song">
+            <template slot-scope="scope">
+                <li>{{scope.item}}</li>
+            </template>
+        </scope-com>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    // 定义一个局部组件
+    const com = {
+        props: ['song'],
+        data() { return {} },
+        template: `
+        <ul>
+            <li v-for="item in song">
+                <slot :item="item"></slot>    
+            </li>
+        </ul>`
+    }
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            song: [
+                {
+                    name: 'lin jj',
+                    gequ: 'show the world',
+                    isHot: true
+                },
+                {
+                    name: 'jay',
+                    gequ: '稻香',
+                    isHot: false
+                },
+                {
+                    name: 'jacky',
+                    gequ: '吻别',
+                    isHot: false
+                }
+            ]
+        },
+        components: {
+            'scope-com': com
+        }
+    })
+</script>
+
+</html>

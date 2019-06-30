@@ -10,23 +10,25 @@
 
 <body>
     <div id="app">
-        <my-slot>这里是插槽的内容</my-slot>
+        <!-- 插槽内容 -->
+        <alert-box>Something bad happened</alert-box>
     </div>
 </body>
 <script src="../vue.js"></script>
 <script>
-    Vue.component("my-slot", {
-        template: `<div>
-        这是插槽位置div
-        <slot></slot>
-        </div>`
-    })
-    var vm = new Vue({
-        el: "#app",
-        data: {
-        }
+    // slot里就是插槽位置
+    Vue.component('alert-box', {
+        template: `
+    <div class="demo-alert-box">
+    <strong>Error!</strong>
+    <slot></slot>
+    </div>`
     })
 
+    var vm = new Vue({
+        el: "#app",
+        data: {}
+    })
 </script>
 
 </html>

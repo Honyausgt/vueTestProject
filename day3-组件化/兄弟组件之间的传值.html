@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <brother1></brother1>
+        <brother2></brother2>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    // 创建事件中心
+    const hub = new Vue()
+
+    // 组件1
+    Vue.component("brother1", {
+        data() {
+            return {
+                num: 0,
+                step: 20
+            }
+        },
+        template: `<div><div>num: {{num}}</div>
+        <button @click="handle">num2-</button></div>`,
+        mounted: function () {
+            //监听numadd事件，当触发时num+=step
+            hub.$on("numadd", (step) => {
+                this.num += step
+            })
+        },
+        methods: {
+            handle() {
+                // 触发numadd2
+                hub.$emit("numadd2", this.step)
+            }
+        }
+    })
+    // 组件2
+    Vue.component("brother2", {
+        data() {
+            return {
+                step: 10,
+                num2: 200
+            }
+        },
+        template: `
+        <div><div>num2: {{num2}}</div>
+        <button @click="handle">num+</button></div>`,
+        mounted: function () {
+            hub.$on("numadd2", (step) => {
+                this.num2 -= step
+            })
+        },
+        methods: {
+            handle() {
+                console.log(this.step);
+                hub.$emit("numadd", this.step)
+            }
+        }
+    })
+
+    const vm = new Vue({
+        el: '#app'
+    })
+
+</script>
+
+</html>

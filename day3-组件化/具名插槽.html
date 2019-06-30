@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 方式一 -->
+        <!-- <name-slot ><p slot="header">我是1号具名插槽的内容</p></name-slot> -->
+
+        <!-- 方式二 -->
+        <name-slot>
+            <template slot="header">
+                <p>巴拉巴拉</p>
+                <p>芭芭拉</p>
+                <p>巴布拉</p>
+            </template>
+        </name-slot>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    // 组件一：
+    Vue.component("name-slot", {
+        data() { return {} },
+        // 方式一
+        // template: `<header>
+        //     <slot name="header"></slot>
+        // </header>`
+
+        //方式二
+        template: `
+        <div>
+            <header>
+                <slot name="header"></slot>
+            </header>
+            <footer>
+                <slot name="footer"></slot>
+            </footer>
+        </div>
+        `
+    })
+
+    const vm = new Vue({
+        el: '#app'
+    })
+</script>
+
+</html>

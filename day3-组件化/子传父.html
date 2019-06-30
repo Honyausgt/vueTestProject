@@ -10,20 +10,28 @@
 
 <body>
     <div id="app">
-        <add-fruit @add="insertFruit"></add-fruit>
+        <add-fruit @addfrui="recFrui($event)"></add-fruit>
         <ul>
-            <li :key="index" v-for="(item,index) in list" v-text="item"></li>
+            <li v-for="item in list">{{item}}</li>
         </ul>
     </div>
     <script src="../vue.js"></script>
     <script>
         Vue.component("add-fruit", {
-            data: () => { return {
-                myFruit: '金枕头'
-            } },
+            data: () => {
+                return {
+                    myFruit: '金枕头'
+                }
+            },
             template: `<div>
-                <button @click="$emit('add', myFruit)">添加水果</button>
-            </div>`
+                <button @click="addf">添加水果</button>
+            </div>`,
+            methods: {
+                addf() {
+                    
+                    this.$emit("addfrui", this.myFruit)
+                }
+            }
         })
 
         var vm = new Vue({
@@ -32,8 +40,8 @@
                 list: ["香蕉", "苹果", "橘子"]
             },
             methods: {
-                insertFruit(f) {
-                    this.list.push(f)
+                recFrui(e){
+                    this.list.push(e)
                 }
             }
         })
