@@ -11,7 +11,6 @@
 <body>
     <div id="app">
         <add-fruit @add="insertFruit"></add-fruit>
-
         <ul>
             <li :key="index" v-for="(item,index) in list" v-text="item"></li>
         </ul>
