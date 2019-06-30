@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-com></my-com>
+        <mypart-com></mypart-com>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    // 全局自定义组件
+    Vue.component("my-com", {
+        data() {
+            return {
+                mymsg: '我是全局组件'
+            }
+        },
+
+        template: '<div>{{mymsg}}</div>'
+    })
+
+    // 局部自定义组件
+    const mypartcom = {
+        data() {
+            return {
+                partmsg: '这里局部组件'
+            }
+        },
+
+        template: '<div> {{partmsg}} </div>'
+    }
+
+    const vm = new Vue({
+        el: '#app',
+        components: {
+            'mypart-com': mypartcom
+        }
+    })
+</script>
+
+</html>

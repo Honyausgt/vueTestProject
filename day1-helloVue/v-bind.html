@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        .color {
+            color: aquamarine;
+        }
+
+        .size {
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div v-bind:class="objcolorClass">颜色</div>
+        <div v-bind:class="arrColorClass">颜色2</div>
+        <button @click="switchC">切换</button>
+
+        <input type="text" v-bind:value="name">
+        <span>{{name}}</span>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            name: 'lisi',
+            objcolorClass: {
+                color: true
+            },
+            colorClass: 'color',
+            sizeClass: '',
+            arrColorClass: [
+                "color",
+                "size"
+            ]
+        },
+        methods: {
+            switchC() {
+                this.arrColorClass = '',
+                    this.objcolorClass.color = !this.objcolorClass.color
+            }
+        }
+    }
+
+    )
+</script>
+
+</html>

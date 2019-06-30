@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <!-- v-cloak -->
+        <!-- <div >{{msg}}</div>
+        <div>{{msg}}</div> -->
+
+        <!-- v-text v-html v-pre -->
+        <!-- <div v-text="msg"></div>
+        <div v-html="msg"></div>
+        <div v-pre>{{msg}}</div> -->
+
+        <!-- v-model -->
+        <span v-text="msg"></span>
+        <input type="text" v-model="msg">
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '56dsfsd465'
+        }
+    })
+</script>
+
+</html>

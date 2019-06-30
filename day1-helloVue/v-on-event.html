@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="app">
+        <!-- v-on:绑定事件 -->
+        <!-- <div v-text="num"></div>
+        <button @click="handle(5)">点5次</button>
+        <button @click="handle1(2, 3, $event)">点我</button> -->
+
+        <!-- v-on阻止冒泡和默认事件 -->
+        <!-- <div @click="log">
+            <button @click.stop="clicked">点击</button>
+        </div> -->
+        <!-- <a href="http://www.baidu.com" @click.prevent>百度</a> -->
+        
+        <!-- <a v-bind:href="url">黑马</a>
+        <button @click="switchUrl">switch</button> -->
+    </div>
+</body>
+
+<script src="../vue.js"></script>
+<script>
+    //v-on阻止冒泡和默认事件
+    const vm = new Vue({
+        el: '.app',
+        data: {
+
+        },
+        methods: {
+            log() {
+                console.log(1)
+            },
+            clicked() {
+
+            }
+        }
+    })
+    // const vm = new Vue({
+    //     el: '.app',
+    //     data: {
+    //         url: 'http://www.itcast.cn'
+    //     },
+    //     methods: {
+    //         switchUrl() {
+    //             this.url = 'http://www.baidu.com'
+    //         }
+    //     }
+    // })
+    ////////////v-on:绑定事件
+    // const vm = new Vue({
+    //     el: '.app',
+    //     data: {
+    //         num: 0
+    //     },
+    //     methods: {
+    //         handle(times) {
+    //             this.num += times
+    //         },
+    //         handle1(p, q, e) {
+    //             console.log(p + q)
+    //             console.log(e.target.innerText);
+    //         }
+    //     }
+    // })
+</script>
+
+</html>

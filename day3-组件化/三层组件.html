@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{ msg }}</div>
+        <!-- <menu-con :com='msg'></menu-con> -->
+        <menu-com :com1='mcom' xn='小耐' :msg="msg"></menu-com>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component("menu-com", {
+            props: ['xn', 'com1','ms'],
+            data: function() {
+                return {
+                    bmsg: '子组件本身的数据'
+                }
+            },
+            template: `<div>{{bmsg}}----{{com1}} <menu-con :com='msg'></menu-con></div>`
+        })                                         
+        Vue.component("menu-con", {
+            props: ['com'],
+            data: function() {
+                return {
+                    amsg: '父组件本身的数据'
+                }
+            },
+            template: `<div>{{com}}</div>`
+        })
+
+
+        var v = new Vue({
+            el: '#app',
+            data: {
+                msg: '爷组件中内容',
+                mcom: '动态绑定属性'
+            }
+        })
+    </script>
+</body>
+
+</html>

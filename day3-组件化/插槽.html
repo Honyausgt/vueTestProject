@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-slot>这里是插槽的内容</my-slot>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    Vue.component("my-slot", {
+        template: `<div>
+        这是插槽位置div
+        <slot></slot>
+        </div>`
+    })
+    var vm = new Vue({
+        el: "#app",
+        data: {
+        }
+    })
+
+</script>
+
+</html>

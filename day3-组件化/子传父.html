@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <add-fruit @add="insertFruit"></add-fruit>
+
+        <ul>
+            <li :key="index" v-for="(item,index) in list" v-text="item"></li>
+        </ul>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component("add-fruit", {
+            data: () => { return {
+                myFruit: '金枕头'
+            } },
+            template: `<div>
+                <button @click="$emit('add', myFruit)">添加水果</button>
+            </div>`
+        })
+
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                list: ["香蕉", "苹果", "橘子"]
+            },
+            methods: {
+                insertFruit(f) {
+                    this.list.push(f)
+                }
+            }
+        })
+
+        //如果想要从子组件向父组件中传递数据
+        //1.在子组件的模板中添加$emit
+        //在add-fruit组件中，在点击按钮的时候，触发$emit对应的事件
+        //<button @click="$emit('add','参数1'...'参数n')">添加水果</button>
+        //@click意思就是在点击按钮的时候，触发执行$emit,$emit中的add就是自定义的事件名称
+
+        //2.给自定义事件添加函数处理
+        //<add-fruit @add="insertFruit"></add-fruit>
+
+        //3.编写处理函数insertFruit
+        // methods:{
+        //         insertFruit( fruit ){
+        //             // console.log(fruit);
+        //             this.list.push(fruit);
+        //         }
+        //     }
+
+    </script>
+</body>
+
+</html>

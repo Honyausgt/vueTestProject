@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 输入框 -->
+        <input type="text" v-model.lazy="msg">
+        {{msg}}
+
+        <!-- 下拉框 -->
+        <select v-model="occupation" multiple>
+            <option value="0">伍六七</option>
+            <option value="1">梅花十三</option>
+            <option value="2">蛋</option>
+        </select>
+
+        <!-- 单选 -->
+        <span>性别：</span>
+        <span>
+            <label for="">男<input type="radio" value="1" v-model="gender"></label>
+            <label for="">女<input type="radio" value="2" v-model="gender"></label>
+        </span>
+
+        <!-- 多选 -->
+        <span>英雄：</span>
+        <span>
+            钢铁侠<input type="checkbox" value="1" v-model.number="hobby">
+            蜘蛛侠<input type="checkbox" value="2" v-model="hobby">
+            惊奇队长<input type="checkbox" value="3" v-model="hobby">
+        </span>
+
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '处理表单-输入框',
+
+            occupation: [0, 1],
+
+            gender: 1,
+
+            hobby: []
+        },
+        methods: {
+            log() {
+                console.log(this.msg);
+                
+            }
+        }
+    })
+</script>
+
+</html>

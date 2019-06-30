@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        输入一个带，号的字符串：<input type="text" v-model="targetStr">
+        <div>转换后：{{targetStr | toArr}}</div>
+        输入一个数组：<input type="text" :value="targetStr">
+        <div>转换后：{{targetArr | toStr}}</div>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    // 自定义全局过滤器
+    Vue.filter('toArr', (str) => {
+        return str.split(",")
+    })
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            targetStr: '',
+            targetArr: '[1,2,3]'
+        },
+        filters: {
+            toStr: (arr) => {
+                console.log(arr)
+                arr = JSON.parse(arr)
+                console.log(arr);
+                return arr.join(",")
+            }
+        }
+    })
+</script>
+
+</html>

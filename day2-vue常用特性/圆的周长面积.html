@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>圆的周长面积--比较计算属性、过滤器、侦听器的使用方式的区别</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 计算属性 -->
+        输入半径r的大小<input type="text" v-model="r">
+        <div>圆的周长：<span>{{round}}</span></div>
+        <div>圆的面积：<span>{{area}}</span></div>
+
+        <!-- 侦听器 -->
+        输入半径r的大小<input type="text" v-model="r">
+        <div>圆的周长：<span>{{round}}</span></div>
+        <div>圆的面积：<span>{{area}}</span></div>
+
+        <!-- 过滤器 -->
+        输入半径r的大小<input type="text" v-model="r">
+        <div>圆的周长：<span>{{ r | comRound}}</span></div>
+        <div>圆的面积：<span>{{}}</span></div>
+
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    //过滤器
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            r: '',
+        },
+        filters: {
+            comRound(r) {
+                return 2 * Math.PI * r
+            }
+        }
+    })
+    // //侦听器
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            r: '',
+            round: '',
+            area: ''
+        },
+        watch: {
+            r(v) {
+                this.round = 2 * Math.PI * v
+            }
+        }
+    })
+    //计算属性
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            r: '',
+        },
+        computed: {
+            round() {
+                return (2 * Math.PI * (this.r)).toFixed(3)
+            },
+            area() {
+                return (Math.PI * this.r * this.r).toFixed(3)
+            }
+        }
+    })
+
+</script>
+
+</html>

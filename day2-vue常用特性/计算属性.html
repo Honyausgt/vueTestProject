@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>半径：<input type="text" v-model="r"></div>
+        <div>周长：<span>{{round}}</span></div>
+        <div>面积：<span>{{area}}</span></div>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    // 全局自定义指令
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            r: 0,
+        },
+        computed: {
+            round() {
+                return 2 * Math.PI * this.r
+            },
+            area() {
+                return (Math.PI * this.r * this.r).toFixed(3)
+
+            }
+        }
+    })
+</script>
+
+</html>
