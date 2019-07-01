@@ -117,22 +117,49 @@
 
     //购物车--列表
     var CartList = {
-      //接收父组件传递的list数组/////////////////////////////////////////////////
+      data() {
+        return {
+          //自定义属性，用于区分用户操作类型
+          type: ''
+        }
+      },
+      //接收父组件传递的list数组
       props: ['list'],
       template: `
-        <div v-for="(item, index) in list ">
-          <div class="item">
-            <img src="{{item.img}}"/>
+        <div>
+          <div v-for="(item, index) in list " class="item">
+            <img :src="item.img"/>
             <div class="name">{{item.name}}</div>
             <div class="change">
-              <a href="">－</a>
-              <input type="text" class="num" />
-              <a href="">＋</a>
+              <a href="" @click.prevent="sub(index)">－</a>
+              <input type="text" class="num" v-model.number="item.num" @input.lazy="change(index, item.num)" />
+              <a href="" @click.prevent="add(index)">＋</a>
             </div>
-            <div class="del">×</div>
+            <div class="del" @click.prevent="del(index)">×</div>
           </div>
         </div>
-      `
+      `,
+      methods: {
+        del(index) {
+          this.type = 'del'
+          //触发父组件的事件
+          this.$emit("del-goods", index, this.type)
+        },
+        add(index) {
+          this.type = 'add'
+          //触发父组件的事件
+          this.$emit("add-goods", index, this.type)
+        },
+        sub(index) {
+          this.type = 'sub'
+          //触发父组件的事件
+          this.$emit("sub-goods", index, this.type)
+        },
+        change(index, num) {
+          console.log("子"+num);
+          this.$emit("change-goods", index, num)
+        }
+      }
     }
 
     // 购物车--总价
@@ -197,7 +224,7 @@
       template: `
         <div class='cart'>
           <cart-title :uname="uname"></cart-title>
-          <cart-list></cart-list>
+          <cart-list :list='list' @del-goods="dele" @add-goods="addg" @sub-goods="subg" @change-goods="changeg"></cart-list>
           <cart-total :list='list'></cart-total>
         </div>
       `,
@@ -205,7 +232,25 @@
         'cart-title': CartTitle,
         'cart-list': CartList,
         'cart-total': CartTotal
+      },
+      methods: {
+        dele(index, type) {
+          //删除数组list中的对应索引号的那一项
+          this.list.splice(index, 1)
+        },
+        addg(index, type) {
+          this.list[index].num++
+        },
+        subg(index, type) {
+          this.list[index].num--
+        },
+        changeg(index, num) {
+          console.log("父"+num);
+          
+          this.list[index].num = num
+        }
       }
+
     });
 
     var vm = new Vue({

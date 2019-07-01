@@ -28,7 +28,6 @@
             </div>`,
             methods: {
                 addf() {
-                    
                     this.$emit("addfrui", this.myFruit)
                 }
             }
@@ -40,7 +39,7 @@
                 list: ["香蕉", "苹果", "橘子"]
             },
             methods: {
-                recFrui(e){
+                recFrui(e) {
                     this.list.push(e)
                 }
             }
