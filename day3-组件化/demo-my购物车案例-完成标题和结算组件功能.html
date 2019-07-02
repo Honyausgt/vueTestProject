@@ -132,7 +132,7 @@
             <div class="name">{{item.name}}</div>
             <div class="change">
               <a href="" @click.prevent="sub(index)">－</a>
-              <input type="text" class="num" v-model.number="item.num" @input.lazy="change(index, item.num)" />
+              <input type="text" class="num" v-model.number="item.num" @change="change(index, item.num)" />
               <a href="" @click.prevent="add(index)">＋</a>
             </div>
             <div class="del" @click.prevent="del(index)">×</div>

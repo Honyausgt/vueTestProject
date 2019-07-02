@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/index.css">
+</head>
+
+<body>
+
+    <section id="todoapp" class="todoapp">
+        <!-- 头部 -->
+        <myheader @inpvalue="addTodo"></myheader>
+        <!-- 列表 -->
+        <mylist :todos="todos" @dbl-click="aaaa" @save-edit="saveEdit" :currentediting="currentEditing"
+            @removetodo="removeTodo"></mylist>
+        <!-- 尾部 -->
+        <myfotter :leftcount="leftCount" @delete-all-done="removeAllDone"></myfotter>
+    </section>
+
+    <script src="../../vue.js"></script>
+
+    <script>
+        //   1、把header  部分提取出来 
+        var myheader = {
+            template: `
+            <header class="header">
+                <h1>todoss</h1>
+                <input placeholder="What needs to be done?" @keyup.enter="addToParent" class="new-todo">
+            </header>
+            `,
+            methods: {
+                //1.1  把用户输入的数据传递到父组件中去
+                addToParent(e) {
+                    var todoText = e.target.value.trim()
+                    if (!todoText.length) {
+                        return
+                    }
+                    // 触发父组件的inpvalue事件
+                    this.$emit("inpvalue", todoText)
+
+                    // 添加后将输入框的值清空
+                    e.target.value = ''
+                }
+            }
+        }
+        // 2.1  把 展示数据列表提取出来
+        // 2.2 把父组件中的todos 传递过来  子组件接收到父组件传递过来的数据 进行渲染
+        var mylist = {
+            props: ["todos", "currentediting"],
+            template: ` 
+            <section class="main">
+               <input v-model="toggleStat1" id="toggle-all" type="checkbox" class="toggle-all">
+                <label for="toggle-all">Mark all as complete</label>
+                <ul class="todo-list">
+                        <li v-for="(item, index) in todos" 
+                        v-bind:class="{completed: item.completed, editing: item === currentediting}">
+                            <div class="view">
+                                <input type="checkbox" class="toggle" v-model="item.completed">
+                                <label @dblclick="doubleMethods(item)">{{item.title}}</label>
+                                <button class="destroy" @click="removeTodoParent(index, $event)"></button>
+                            </div>
+                            <input class="edit" @keyup.enter="saveEdit(item, index, $event)" :value="item.title" @keyup.esc="currentediting = null">
+                        </li>
+                </ul>
+            </section>
+            `,
+            methods: {
+                //  3.1 删除操作
+                //  3.2 把需要删除的id 传递给父组件过来
+                removeTodoParent(index) {
+                    this.$emit("removetodo", index)
+                }
+                // ,
+                // saveEdit(item, index, event) {
+                //     var editText = event.target.value.trim()
+                //     this.$emit("save-edit", editText, item, index)
+                // },
+                // doubleMethods(item) {
+                //     this.$emit("dbl-click", item)
+                // }
+            },
+            computed: {
+                toggleStat1: {
+                    get() {
+                        return this.todos.every(item => item.completed)
+                    },
+                    set(val) {
+                        this.todos.forEach(todo => todo.completed = val)
+                    }
+                },
+            },
+        }
+
+
+        var myfotter = {
+            props: ['leftcount'],
+            template: `
+            <footer class="footer">
+            <span class="todo-count"><strong>{{leftcount}}</strong> item left</span>
+            <button class="clear-completed" @click="deleteAll">Clear completed</button>
+        </footer>
+            `,
+            methods: {
+                deleteAll() {
+                    this.$emit("delete-all-done")
+                }
+            }
+        }
+
+        var vm = new Vue({
+            el: "#todoapp",
+            data: {
+                currentEditing: null,
+                todos: [{
+                    id: 1,
+                    title: '吃饭',
+                    completed: true
+                }, {
+                    id: 2,
+                    title: '睡觉',
+                    completed: true
+                }, {
+                    id: 3,
+                    title: '打豆豆',
+                    completed: false
+                }]
+            },
+            methods: {
+                // 添加todo功能
+                addTodo(todoText) {
+                    this.todos.push({
+                        id: this.todos.length + 1,
+                        title: todoText,
+                        completed: false
+                    })
+                },
+
+                //删除todo功能
+                removeTodo(index) {
+                    console.log(index);
+                    this.todos.splice(index, 1)
+                },
+
+                //删除已完成功能
+                removeAllDone() {
+                    //筛选--留下未完成也就是completed为false的
+                    let recArr = this.todos.filter((item, index) => {
+                        return item.completed != true
+                    })
+                    // 将筛选后的数组赋值给原todos数组
+                    this.todos = recArr
+                }
+            },
+
+            //计算未完成条数
+            computed: {
+                leftCount() {
+                    let recArr = this.todos.filter((item, index) => {
+                        return item.completed == false
+                    })
+                    return recArr.length
+                }
+            },
+            components: {
+                myheader,
+                mylist,
+                myfotter
+            }
+        })
+    </script>
+</body>
+
+</html>
