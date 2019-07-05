@@ -155,10 +155,42 @@
 
   //创建对应子组件
   const Users = {
-    template: `<h3>用户管理区域</h3>`
+    data() {
+      return {
+        userlist: [
+          { id: 1, name: "张三", age: 10 },
+          { id: 2, name: "张三", age: 10 },
+          { id: 3, name: "张三", age: 10 },
+          { id: 4, name: "张三", age: 10 },
+          { id: 5, name: "张三", age: 10 }
+        ]
+      }
+    },
+    template: `<div>
+    <h3>用户管理区域</h3>
+    <table>
+        <thead>
+            <tr><th>编号</th><th>姓名</th><th>年龄</th><th>操作</th></tr>
+       </thead>
+       <tbody>
+           <tr v-for="item in userlist" :key="item.id">
+               <td>{{item.id}}</td>
+               <td>{{item.name}}</td>
+               <td>{{item.age}}</td>
+               <td><a href="javascript:;" @click="getDatail(item.id)">详情</a></td>
+           </tr>
+       </tbody>
+    </table>
+</div>`,
+    methods: {
+      getDatail(id) {
+        this.$router.push("/settings")
+
+      }
+    }
   }
   const Rights = {
-    template: `<h3>权限管理区域</h3>`
+    template: `<h3>权限</h3>`
   }
   const Goods = {
     template: `<h3>商品管理区域</h3>`
@@ -167,7 +199,17 @@
     template: `<h3>订单管理区域</h3>`
   }
   const Settings = {
-    template: `<h3>系统设置区域</h3>`
+    template: `
+    <div>
+      <h3>系统设置区域</h3>
+      <button @click="backup">返回上一步</button>
+    </div>
+    `,
+    methods: {
+      backup() {
+        this.$router.go(-1)
+      }
+    }
   }
 
   const router = new VueRouter({
