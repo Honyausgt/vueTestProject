@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 2创建路由链接 -->
+        <router-link to="/index">index</router-link>
+        <router-link to="/login">login</router-link>
+
+        <!-- 3创建路由占位符 -->
+        <router-view></router-view>
+    </div>
+</body>
+
+<script src="../vue.js"></script>
+<script src="../axios.js"></script>
+<!-- 1引入路由库文件 -->
+<script src="../vue-router_3.0.2.js"></script>
+<script>
+    // 4创建路由的子组件 --注意首字母大写
+    const Index = {
+        template: '<div>我是首页</div>'
+    }
+    const Login = {
+        template: '<div>我是登录页</div>'
+    }
+
+    // 5创建路由规则 --注意这里是VueRouter
+    const router = new VueRouter({
+        routes: [
+            {path: '/index', component: Index},
+            {path: '/login', component: Login}
+        ]
+    })
+
+    const vm = new Vue({
+        el: '#app',
+        data: {},
+
+        // 6挂载路由实例对象 --属性名和属性值一样可简写
+        router
+    })
+
+    // 以上，就是一个最简单的vue路由
+</script>
+
+</html>

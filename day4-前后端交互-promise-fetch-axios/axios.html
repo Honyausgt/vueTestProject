@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="../axios.js"></script>
+<script>
+    // axios.get("http://127.0.0.1:3000/books")
+    //     .then(ret => {
+    //         console.log(ret)
+    //     })
+
+    // //get 
+    // axios.get("http://127.0.0.1:3000/axios?id=123")
+    //     .then(ret => {
+    //         console.log(ret.data)
+    //     })
+    // axios.get("http://127.0.0.1:3000/axios/111")
+    //     .then(ret => {
+    //         console.log(ret.data)
+    //     })
+
+    // axios.get("http://127.0.0.1:3000/axios", {
+    //     params: {
+    //         uname: 1111
+    //     }
+    // }).then(ret => {
+    //     console.log(ret.data)
+    // })
+
+    // //post 
+    // axios.post("http://127.0.0.1:3000/axios", {
+    //     uname: 'rose', pwd: 66666
+    // }).then(ret => {
+    //     console.log(ret.data)
+    // })
+    // const para = new URLSearchParams()
+    // para.append("uname", 'lily')
+    // axios.post("http://127.0.0.1:3000/axios", para)
+    // .then(res=>{
+    //     console.log(res.data);
+    // })
+
+    //put
+    // axios.put("http://127.0.0.1:3000/axios", {
+    //     uname: ' tom',
+    //     pwd: 123
+    // })
+    //     .then(res => {
+    //         console.log(res.data);
+    //     })
+
+    // const x = new URLSearchParams()
+    // x.append("uname", "rose")
+    // axios.put("http://127.0.0.1:3000/axios", x)
+    // .then(res => {
+    // console.log(res.data);
+    // })
+
+    // delete
+    // axios.delete("http://127.0.0.1:3000/axios?id=123")
+    //     .then(ret => {
+    //         console.log(ret.data)
+    //     })
+
+    // axios.delete("http://127.0.0.1:3000/axios/121113")
+    //     .then(ret => {
+    //         console.log(ret.data)
+    //     })
+
+    // axios.delete("http://127.0.0.1:3000/axios", {
+    //     params: {
+    //         uname: 11111111
+    //     }
+    // })
+    //     .then(ret => {
+    //         console.log(ret.data,ret.headers)
+    //     })
+    //         axios.get("http://127.0.0.1:3000/axios", {
+    //     params: {
+    //         uname: 1111
+    //     }
+    // }).then(ret => {
+    //     console.log(ret.data)
+    // })
+
+    axios.defaults.baseURL = 'http://127.0.0.1:3000'
+    //使用async/await 处理多个异步请求
+    async function getData() {
+        const ret = await axios.get("/axios")
+        console.log(ret);
+        
+        return ret
+    }
+    getData()
+    .then(ret => {
+        console.log(ret);
+        
+    })
+
+
+
+
+
+
+
+</script>
+
+</html>

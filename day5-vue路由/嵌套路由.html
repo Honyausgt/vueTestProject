@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/login">登录</router-link>
+        <router-link to="/register">注册</router-link>
+        <router-link to="/index">首页</router-link>
+
+        <router-view></router-view>
+    </div>
+</body>
+<script src="../vue_2.5.22.js"></script>
+<script src="../vue-router_3.0.2.js"></script>
+<script>
+    const login = {
+        template: '<h1>这是登录页</h1>'
+    }
+    const register = {
+        template: '<h1>这是注册页</h1>'
+    }
+    const index = {
+        template: `<div><h1>这是首页</h1>
+        <hr/>
+        <!-- 路由连接 -->
+        <router-link to="/register/tab1">tab1</router-link>
+        <!-- 路由占位符 -->
+        <router-view/></div>
+        `
+    }
+
+    //定义二级（子）组件
+    const Tab = {
+        template: `<div>我是二级列表</div>`
+    }
+
+    //创建router对象
+    const myrouter = new VueRouter({
+        // 配置路由规则
+        routes:
+            [
+                { path: '/login', component: login },
+                { path: '/register', component: register },
+                { path: '/index', component: index, children: [
+                    {path: '/register/tab1', component: Tab}
+                ] },
+                // 路由重定向
+                { path: '/', redirect: '/index' }
+            ]
+    })
+
+    const vm = new Vue({
+        el: '#app',
+        data: {},
+        router: myrouter
+    })
+</script>
+
+</html>
